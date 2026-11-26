@@ -39,26 +39,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+          # This repository is locked with bun.lock, not package-lock.json.
+          # Do not enable npm cache resolution against a nonexistent npm lockfile.
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm install
+        run: bun install --frozen-lockfile
 
       - name: Install FFmpeg and Playwright Chromium (CI only)
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-          npm install --no-save playwright
-          npx playwright install chromium --with-deps
+          bun add --no-save playwright
+          bunx playwright install chromium --with-deps
 
       - name: Build production bundle
-        run: npm run build
+        run: bun run build
 
       - name: Render 1080x1920 60fps H.264 + AAC Master MP4
         run: node scripts/render-ci.mjs --workers "${{ inputs.workers || '4' }}" --out "build/toonforge-master-1080p-60fps.mp4"
 
       - name: Verify MP4 stream specifications
         run: |
+          test -s build/toonforge-master-1080p-60fps.mp4
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,codec_name,pix_fmt,nb_frames -of default=noprint_wrappers=1 build/toonforge-master-1080p-60fps.mp4
           ffprobe -v error -select_streams a:0 -show_entries stream=codec_name,sample_rate,channels,duration -of default=noprint_wrappers=1 build/toonforge-master-1080p-60fps.mp4
           ls -lh build/toonforge-master-1080p-60fps.mp4
@@ -68,6 +75,7 @@ jobs:
         with:
           name: toonforge-master-1080p-60fps-mp4
           path: build/toonforge-master-1080p-60fps.mp4
+          if-no-files-found: error
           retention-days: 30
 
       - name: Publish GitHub Release with MP4 only

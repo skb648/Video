@@ -1,0 +1,97 @@
+name: Render 1080p 60fps Master MP4
+
+on:
+  workflow_dispatch:
+    inputs:
+      workers:
+        description: "Parallel Chromium render workers (2-4 recommended)"
+        required: false
+        default: "4"
+        type: choice
+        options:
+          - "2"
+          - "4"
+      publish_release:
+        description: "Publish .mp4 only to a GitHub Release"
+        required: false
+        default: true
+        type: boolean
+      push_mp4_only_branch:
+        description: "Push ONLY the .mp4 file to an orphan 'video-mp4-only' branch"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  render-master:
+    name: Render 1080x1920 60fps MP4
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install FFmpeg and Playwright Chromium (CI only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --no-save playwright
+          npx playwright install chromium --with-deps
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Render 1080x1920 60fps H.264 + AAC Master MP4
+        run: node scripts/render-ci.mjs --workers "${{ inputs.workers || '4' }}" --out "build/toonforge-master-1080p-60fps.mp4"
+
+      - name: Verify MP4 stream specifications
+        run: |
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,codec_name,pix_fmt,nb_frames -of default=noprint_wrappers=1 build/toonforge-master-1080p-60fps.mp4
+          ffprobe -v error -select_streams a:0 -show_entries stream=codec_name,sample_rate,channels,duration -of default=noprint_wrappers=1 build/toonforge-master-1080p-60fps.mp4
+          ls -lh build/toonforge-master-1080p-60fps.mp4
+
+      - name: Upload MP4 Artifact (MP4 only)
+        uses: actions/upload-artifact@v4
+        with:
+          name: toonforge-master-1080p-60fps-mp4
+          path: build/toonforge-master-1080p-60fps.mp4
+          retention-days: 30
+
+      - name: Publish GitHub Release with MP4 only
+        if: ${{ inputs.publish_release != false }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: render-1080p-60fps
+          name: "TOONFORGE ∞ — 1080p 60fps Master MP4"
+          body: "Procedural 1080×1920, 60 fps, BT.709 H.264 + 48 kHz stereo AAC master video rendered by GitHub Actions."
+          files: build/toonforge-master-1080p-60fps.mp4
+          make_latest: true
+
+      - name: Push MP4-only file to 'video-mp4-only' branch
+        if: ${{ inputs.push_mp4_only_branch != false }}
+        run: |
+          mkdir -p /tmp/mp4-only-repo
+          cp build/toonforge-master-1080p-60fps.mp4 /tmp/mp4-only-repo/toonforge-master-1080p-60fps.mp4
+          cd /tmp/mp4-only-repo
+          git init -b video-mp4-only
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add toonforge-master-1080p-60fps.mp4
+          git commit -m "Render TOONFORGE 1080x1920 60fps master MP4"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin video-mp4-only
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

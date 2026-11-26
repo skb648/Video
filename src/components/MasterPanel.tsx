@@ -261,15 +261,53 @@ export function MasterPanel({ studio, ready, qa, onJumpToFrame }: MasterPanelPro
 
   return (
     <main className="mx-auto max-w-6xl space-y-6 p-5">
-      <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
-        <div className="space-y-4">
+      <section className="grid gap-6 lg:grid-cols-[auto_1fr]">
+        <div className="flex flex-col items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+          <div className="flex w-full items-baseline justify-between gap-2">
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#FF5A1F]">Rendered Master</span>
+            <span className="font-mono text-[11px] text-white/50">public/toonforge-master.mp4</span>
+          </div>
+          <video
+            data-testid="master-mp4-player"
+            className="rounded-lg border border-white/15 bg-black shadow-[0_0_60px_rgba(255,90,31,0.12)]"
+            style={{ aspectRatio: "9 / 16", height: "min(62vh, 110vw)" }}
+            src="/toonforge-master.mp4"
+            controls
+            playsInline
+            preload="metadata"
+          />
+          <a
+            href="/toonforge-master.mp4"
+            download="toonforge-master.mp4"
+            className="w-full rounded bg-[#FF5A1F] px-5 py-2.5 text-center text-xs font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-[#ff723f]"
+          >
+            Download Master MP4
+          </a>
+        </div>
+
+        <div className="flex min-w-0 flex-col gap-4">
+          <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+            <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#35E3FF]">GitHub Actions · Cloud Render</span>
+                <h2 className="text-lg tracking-[0.14em]" style={{ fontFamily: "Anton, Impact, sans-serif" }}>
+                  1080×1920 · 60 FPS MASTER WORKFLOW
+                </h2>
+              </div>
+              <span className="font-mono text-[11px] text-white/55">.github/workflows/render-1080p-60fps.yml</span>
+            </div>
+            <p className="text-xs leading-relaxed text-white/65">
+              Push this project to GitHub and run <strong className="text-[#F4EFE6]">Render 1080p 60fps Master MP4</strong> from the Actions tab. It renders all 1,800 frames at native 1080×1920 60 fps with 4 parallel Chromium + FFmpeg workers and publishes <strong className="text-[#F4EFE6]">only the .mp4 file</strong> as a GitHub Actions artifact, a GitHub Release asset, and an MP4-only <code className="font-mono text-[#35E3FF]">video-mp4-only</code> branch.
+            </p>
+          </div>
+
           <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
             <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
               <div>
                 <h2 className="text-lg tracking-[0.14em]" style={{ fontFamily: "Anton, Impact, sans-serif" }}>
                   STORYBOARD CONTACT SHEET
                 </h2>
-                <p className="text-xs text-white/50">12 frames sampled every 2.5 s from the delivered 1080×1920 master — click any tile to inspect in Live Studio</p>
+                <p className="text-xs text-white/50">12 frames sampled every 2.5 s — click any tile to inspect in Live Studio</p>
               </div>
               <span className="font-mono text-[11px] text-[#FF5A1F]">30.000 s · 1800 FRAMES</span>
             </div>
@@ -314,14 +352,15 @@ export function MasterPanel({ studio, ready, qa, onJumpToFrame }: MasterPanelPro
             />
           </div>
         </div>
+      </section>
 
-        <aside className="flex flex-col gap-4">
-          <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4 space-y-4">
-            <div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#FF5A1F]">In-Browser Mastering</span>
-              <h2 className="mt-1 text-xl tracking-[0.12em]" style={{ fontFamily: "Anton, Impact, sans-serif" }}>
-                EXPORT MASTER
-              </h2>
+      <section className="grid gap-6 md:grid-cols-2">
+        <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4 space-y-4">
+          <div>
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#FF5A1F]">In-Browser Mastering</span>
+            <h2 className="mt-1 text-xl tracking-[0.12em]" style={{ fontFamily: "Anton, Impact, sans-serif" }}>
+              EXPORT MASTER
+            </h2>
               <p className="mt-1 text-xs leading-relaxed text-white/55">
                 Encode a deterministic H.264 MP4 directly from the WebGL2 renderer via WebCodecs &amp; <code className="font-mono">mp4-muxer</code>, or export the BS.1770 mastered 32-bit WAV stem.
               </p>
@@ -454,7 +493,6 @@ export function MasterPanel({ studio, ready, qa, onJumpToFrame }: MasterPanelPro
               </dl>
             </div>
           )}
-        </aside>
       </section>
     </main>
   );

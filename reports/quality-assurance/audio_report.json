@@ -1,0 +1,13 @@
+{
+  "sampleRate": 48000,
+  "durationSec": 30,
+  "integratedLUFS": -14.232270168348505,
+  "samplePeakDBFS": -2.499999397372391,
+  "truePeakDBTP": -2.089981583698814,
+  "targetLUFS": -14,
+  "ceilingDBFS": -2.5,
+  "gainAppliedDB": -0.015178402039332184,
+  "silentTailSec": 0.5654166666666667,
+  "firstSoundSec": 0.18504166666666666,
+  "clippedSamples": 0
+}

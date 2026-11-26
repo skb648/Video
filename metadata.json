@@ -1,0 +1,6 @@
+{
+  "name": "TOONFORGE ∞",
+  "description": "Procedural cinematic motion picture studio generating a deterministic 30-second, 1080×1920, 60 fps brand film with WebGL2 post-processing and offline-mastered soundtrack.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

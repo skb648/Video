@@ -1,0 +1,191 @@
+{
+ "generated": "2026-11-25T07:22:59.171Z",
+ "file": "public/toonforge-master.mp4",
+ "sizeMB": 24.8,
+ "bitrateMbps": 6.6,
+ "video": {
+  "width": 1080,
+  "height": 1920,
+  "r_frame_rate": "60/1",
+  "codec_name": "h264",
+  "pix_fmt": "yuv420p",
+  "nb_frames": "1800"
+ },
+ "audio": {
+  "index": 1,
+  "codec_name": "aac",
+  "codec_long_name": "AAC (Advanced Audio Coding)",
+  "profile": "LC",
+  "codec_type": "audio",
+  "codec_time_base": "1/48000",
+  "codec_tag_string": "mp4a",
+  "codec_tag": "0x6134706d",
+  "sample_fmt": "fltp",
+  "sample_rate": "48000",
+  "channels": 2,
+  "channel_layout": "stereo",
+  "bits_per_sample": 0,
+  "r_frame_rate": "0/0",
+  "avg_frame_rate": "0/0",
+  "time_base": "1/48000",
+  "start_pts": 0,
+  "start_time": "0.000000",
+  "duration_ts": 1440000,
+  "duration": "30.000000",
+  "bit_rate": "266402",
+  "max_bit_rate": "266402",
+  "nb_frames": "1408",
+  "nb_read_frames": "1407",
+  "disposition": {
+   "default": 1,
+   "dub": 0,
+   "original": 0,
+   "comment": 0,
+   "lyrics": 0,
+   "karaoke": 0,
+   "forced": 0,
+   "hearing_impaired": 0,
+   "visual_impaired": 0,
+   "clean_effects": 0,
+   "attached_pic": 0,
+   "timed_thumbnails": 0
+  },
+  "tags": {
+   "language": "und",
+   "handler_name": "SoundHandler"
+  }
+ },
+ "loudness": {
+  "I": -14.3,
+  "LRA": 3.5,
+  "TP": -2.1
+ },
+ "frameDetail": "1800 frames, mean luma 33.9",
+ "checks": [
+  {
+   "name": "Resolution 1080×1920",
+   "pass": true,
+   "detail": "1080×1920"
+  },
+  {
+   "name": "Aspect ratio 9:16",
+   "pass": true,
+   "detail": "1080/1920"
+  },
+  {
+   "name": "Frame rate 60 (r_frame_rate)",
+   "pass": true,
+   "detail": "60/1"
+  },
+  {
+   "name": "Average frame rate 60",
+   "pass": true,
+   "detail": "60/1"
+  },
+  {
+   "name": "Frame count 1800 (decoded count)",
+   "pass": true,
+   "detail": "nb_read_frames=1800, nb_frames=1800"
+  },
+  {
+   "name": "Codec H.264",
+   "pass": true,
+   "detail": "h264 High L42"
+  },
+  {
+   "name": "Pixel format yuv420p",
+   "pass": true,
+   "detail": "yuv420p"
+  },
+  {
+   "name": "Colour tags BT.709",
+   "pass": true,
+   "detail": "bt709/bt709/bt709, range tv"
+  },
+  {
+   "name": "Container MP4",
+   "pass": true,
+   "detail": "mov,mp4,m4a,3gp,3g2,mj2"
+  },
+  {
+   "name": "Audio codec AAC",
+   "pass": true,
+   "detail": "aac"
+  },
+  {
+   "name": "Audio 48 kHz stereo",
+   "pass": true,
+   "detail": "48000 Hz, 2 ch"
+  },
+  {
+   "name": "Duration 30.000 s (±0.05)",
+   "pass": true,
+   "detail": "30.0000 s"
+  },
+  {
+   "name": "Audio/video duration match (±0.06 s)",
+   "pass": true,
+   "detail": "video 30.000 s, audio 30.000 s"
+  },
+  {
+   "name": "Constant frame rate (every PTS delta = 1/60 s)",
+   "pass": true,
+   "detail": "1800 packets, max deviation 6.67e-7 s"
+  },
+  {
+   "name": "Full-file decode, zero errors",
+   "pass": true,
+   "detail": "decoded 100% without warnings"
+  },
+  {
+   "name": "Integrated loudness −14 LUFS (±1.0)",
+   "pass": true,
+   "detail": "-14.3 LUFS (LRA 3.5 LU)"
+  },
+  {
+   "name": "True peak ≤ −1.0 dBTP after AAC",
+   "pass": true,
+   "detail": "-2.1 dBTP (ffmpeg ebur128 true-peak)"
+  },
+  {
+   "name": "No clipping (max sample < 0 dBFS)",
+   "pass": true,
+   "detail": "max_volume -2.1 dB"
+  },
+  {
+   "name": "No unintended silence (>0.4 s below −50 dB before the final fade)",
+   "pass": true,
+   "detail": "silence starts at 29.33s (expected only the final tail)"
+  },
+  {
+   "name": "Clean ending (final 0.1 s ≤ −60 dB RMS)",
+   "pass": true,
+   "detail": "RMS -113.442149 dB"
+  },
+  {
+   "name": "Stage A: no unexpected black frames (authored fade-in 0–8 and fade-out 1738–1799 excluded)",
+   "pass": true,
+   "detail": "1800 frames analysed; 22 near-black frames, all inside the authored fade-out"
+  },
+  {
+   "name": "Stage A: every frame analysed once",
+   "pass": true,
+   "detail": "1800 frame records"
+  },
+  {
+   "name": "Stage A: no duplicated frames (native 60 fps; near-black fade-out frames cannot be compared)",
+   "pass": true,
+   "detail": "every frame differs from its predecessor"
+  },
+  {
+   "name": "Stage B: no unexplained flicker/hitches (large frame-to-frame jumps only on authored cuts/impacts)",
+   "pass": true,
+   "detail": "max authored jump 212.6"
+  },
+  {
+   "name": "Contact sheet extracted from master",
+   "pass": true,
+   "detail": "reports/storyboard/contact_sheet.jpg (12 frames, every 2.5 s)"
+  }
+ ]
+}
